@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khám phá bức tranh bí mật</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Arial,sans-serif;color:#243329;background:#f0fdf4}body{display:flex;flex-direction:column;overflow:hidden}header{background:#166534;color:white;text-align:center;padding:10px 12px;flex:none}h1{font-size:clamp(18px,2vw,25px);margin:0}header p{margin:4px 0 0;font-size:13px;color:#dcfce7}main{width:min(1200px,100%);margin:auto;padding:12px;display:grid;grid-template-columns:minmax(0,1fr) 295px;gap:14px;align-items:center;min-height:0;flex:1}.panel{background:#fff;padding:15px;border-radius:12px;box-shadow:0 3px 14px #0001}h2{margin:0 0 9px;color:#166534;font-size:17px}.muted{color:#64748b;font-size:12px;line-height:1.4}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn,.upload{border:0;border-radius:8px;padding:10px 12px;font-size:13px;font-weight:bold;color:#fff;cursor:pointer;background:#166534;text-align:center}.btn:hover,.upload:hover{filter:brightness(1.08)}.btn:disabled{opacity:.5;cursor:not-allowed}.amber{background:#d97706}.upload input{display:none}.game-area{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.puzzle{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));width:min(100%,calc((100dvh - 130px)*4/3),700px);aspect-ratio:4/3;overflow:hidden;border:3px solid #166534;border-radius:11px;background:#d1d5db}.wrapper{perspective:900px;min-width:0;min-height:0}.piece{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s;cursor:pointer}.piece.flipped{transform:rotateY(180deg);pointer-events:none}.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:clamp(15px,2.4vw,24px)}.front{color:#fff;background:linear-gradient(135deg,#3b82f6,#1d4ed8);border:1px solid #ffffff50}.front:hover{background:#2563eb}.back{transform:rotateY(180deg);background-repeat:no-repeat;background-color:white}.progress{text-align:center;color:#166534;font-weight:bold;margin:0;font-size:13px}.sidebar{display:flex;flex-direction:column;gap:12px;min-width:0;max-height:100%;overflow:auto}.sidebar .controls{display:grid;grid-template-columns:1fr 1fr}.sidebar .controls .btn{min-height:43px}.teams{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.team{text-align:center;padding:10px 3px;border-radius:10px}.red{background:#fef2f2;border:2px solid #fecaca}.blue{background:#eff6ff;border:2px solid #bfdbfe}.red h3{color:#dc2626}.blue h3{color:#2563eb}.team h3{font-size:14px;margin:0 0 5px}.team p{margin:3px 0}.heart{width:36px;height:36px;margin:2px;border-radius:50%;font-size:19px;cursor:pointer;border:2px solid currentColor}.red .heart{color:#dc2626;background:#fee2e2}.blue .heart{color:#2563eb;background:#dbeafe}.heart:disabled{color:#9ca3af;background:#e5e7eb;opacity:.6;cursor:not-allowed}#imageName{overflow-wrap:anywhere}@media(max-width:750px){body{overflow:auto;min-height:100dvh}main{grid-template-columns:1fr;align-content:start;gap:10px}.sidebar{overflow:visible;max-height:none;grid-row:1}.game-area{grid-row:2}.puzzle{width:min(100%,calc((100dvh - 330px)*4/3),650px)}.sidebar .panel{padding:10px}.teams{margin-top:8px}}@media(max-height:620px) and (min-width:751px){header{padding:5px}header p{display:none}main{padding:6px}.sidebar{gap:6px}.panel{padding:9px}.puzzle{width:min(100%,calc((100dvh - 65px)*4/3),700px)}}
+</style>
+</head>
+<body>
+<header><h1>KHÁM PHÁ BỨC TRANH BÍ MẬT</h1><p>Trò chơi ôn tập kiến thức PowerPoint</p></header>
+<main>
+  <div class="game-area">
+    <div id="puzzleGrid" class="puzzle" aria-label="Bức tranh gồm 20 mảnh ghép"></div>
+    <p id="progressText" class="progress">Đã mở: 0 / 20 mảnh ghép</p>
+  </div>
+  <aside class="sidebar">
+    <section class="panel">
+      <h2>Hình ảnh bí mật</h2>
+      <div class="controls"><label class="upload">Chọn ảnh từ máy<input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label></div>
+      <p id="imageName" class="muted">Chưa chọn hình ảnh</p>
+      <p id="imageStatus" class="muted" role="status">Chọn ảnh để bắt đầu trò chơi.</p>
+    </section>
+    <section class="panel">
+      <div class="controls"><button class="btn amber" id="revealAllBtn">Mở toàn bộ tranh</button><button class="btn" id="resetBtn">Bắt đầu lại</button></div>
+      <div class="teams">
+        <div class="team red"><h3>Đội Đỏ</h3><p class="muted">Cứu trợ</p><button class="heart" title="Sử dụng quyền cứu trợ" aria-label="Đội Đỏ: cứu trợ 1">♥</button><button class="heart" title="Sử dụng quyền cứu trợ" aria-label="Đội Đỏ: cứu trợ 2">♥</button></div>
+        <div class="team blue"><h3>Đội Xanh</h3><p class="muted">Cứu trợ</p><button class="heart" title="Sử dụng quyền cứu trợ" aria-label="Đội Xanh: cứu trợ 1">♥</button><button class="heart" title="Sử dụng quyền cứu trợ" aria-label="Đội Xanh: cứu trợ 2">♥</button></div>
+      </div>
+      <p class="muted">Bắt đầu lại sẽ khôi phục quyền cứu trợ của cả hai đội.</p>
+    </section>
+  </aside>
+</main>
+<script>
+const COLS=4,ROWS=5,TOTAL=COLS*ROWS;
+const grid=document.getElementById('puzzleGrid'),input=document.getElementById('imageInput'),imageName=document.getElementById('imageName'),status=document.getElementById('imageStatus'),progress=document.getElementById('progressText'),reveal=document.getElementById('revealAllBtn');
+let imageURL='',objectURL=null,opened=0,timers=[];
+function resetLifelines(){document.querySelectorAll('.heart').forEach(button=>{button.disabled=false;button.setAttribute('aria-pressed','false')})}
+function updateProgress(){progress.textContent=opened===TOTAL?'Chúc mừng! Bức tranh bí mật đã được khám phá.':`Đã mở: ${opened} / ${TOTAL} mảnh ghép`;if(opened===TOTAL)reveal.disabled=true}
+function flipPiece(piece){if(!imageURL||piece.classList.contains('flipped'))return;piece.classList.add('flipped');opened++;updateProgress()}
+function initPuzzle(){timers.forEach(clearTimeout);timers=[];grid.replaceChildren();opened=0;reveal.disabled=false;updateProgress();for(let row=0;row<ROWS;row++)for(let col=0;col<COLS;col++){const wrapper=document.createElement('div'),piece=document.createElement('div'),front=document.createElement('div'),back=document.createElement('div');wrapper.className='wrapper';piece.className='piece';front.className='face front';back.className='face back';front.textContent=row*COLS+col+1;if(imageURL){back.style.backgroundImage=`url("${imageURL}")`;back.style.backgroundSize=`${COLS*100}% ${ROWS*100}%`;back.style.backgroundPosition=`${COLS===1?0:col/(COLS-1)*100}% ${ROWS===1?0:row/(ROWS-1)*100}%`}piece.append(front,back);wrapper.appendChild(piece);grid.appendChild(wrapper);piece.addEventListener('click',()=>{if(!imageURL){alert('Vui lòng chọn hình ảnh trước khi chơi!');return}flipPiece(piece)})}}
+input.addEventListener('change',()=>{const file=input.files?.[0];if(!file)return;if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)){status.textContent='Định dạng ảnh không được hỗ trợ.';input.value='';return}const newURL=URL.createObjectURL(file),test=new Image();status.textContent='Đang tải hình ảnh...';test.onload=()=>{if(objectURL)URL.revokeObjectURL(objectURL);objectURL=newURL;imageURL=newURL;imageName.textContent=file.name;status.textContent='Đã tải ảnh. Hãy lật các mảnh ghép!';initPuzzle();resetLifelines()};test.onerror=()=>{URL.revokeObjectURL(newURL);status.textContent='Không thể đọc ảnh, vui lòng chọn ảnh khác.'};test.src=newURL;input.value=''});
+reveal.addEventListener('click',()=>{if(!imageURL){alert('Vui lòng chọn hình ảnh trước!');return}reveal.disabled=true;let delay=0;document.querySelectorAll('.piece:not(.flipped)').forEach(piece=>{timers.push(setTimeout(()=>flipPiece(piece),delay));delay+=80})});
+document.getElementById('resetBtn').addEventListener('click',()=>{initPuzzle();resetLifelines()});
+document.querySelectorAll('.heart').forEach(button=>button.addEventListener('click',()=>{button.disabled=true;button.setAttribute('aria-pressed','true')}));
+window.addEventListener('pageshow',event=>{if(event.persisted){initPuzzle();resetLifelines()}});
+window.addEventListener('pagehide',()=>{if(objectURL){URL.revokeObjectURL(objectURL);objectURL=null}});
+initPuzzle();resetLifelines();
+</script>
+</body></html>
